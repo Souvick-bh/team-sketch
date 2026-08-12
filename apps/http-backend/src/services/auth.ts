@@ -1,7 +1,8 @@
 import "dotenv/config"
 import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "@repo/common-backend/config"
 
-const secret = process.env.JWT_SECRET!;
+const secret = JWT_SECRET;
 
 export function signUser(user: any) {
     return jwt.sign({
