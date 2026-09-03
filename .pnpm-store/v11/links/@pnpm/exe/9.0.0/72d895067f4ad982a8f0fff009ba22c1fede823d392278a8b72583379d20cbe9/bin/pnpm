@@ -1,0 +1,29 @@
+#!/bin/sh
+basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+basedir_win="$basedir"
+exe=""
+msys=""
+
+case `uname -a` in
+  *CYGWIN*|*MINGW*|*MSYS*)
+    if command -v cygpath > /dev/null 2>&1; then
+      basedir_win=`cygpath -w "$basedir"`
+    fi
+    exe=".exe"
+    msys="true"
+  ;;
+  *WSL2*)
+    if command -v wslpath > /dev/null 2>&1; then
+      basedir_win="$(wslpath -w "$basedir" 2> /dev/null)"
+      if [ $? -ne 0 ] || [ -z "$basedir_win" ]; then
+        basedir_win="$basedir"
+      else
+        exe=".exe"
+      fi
+    fi
+  ;;
+esac
+
+exec "$basedir/../node_modules/@pnpm/exe/pnpm"   "$@"
+exit $?
+# cmd-shim-target=/home/souvick/projects/excalidraw/v0/.pnpm-store/v11/links/@pnpm/exe/9.0.0/72d895067f4ad982a8f0fff009ba22c1fede823d392278a8b72583379d20cbe9/node_modules/@pnpm/exe/pnpm

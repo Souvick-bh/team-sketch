@@ -7,7 +7,7 @@ const secret = JWT_SECRET;
 export function signUser(user: any) {
     return jwt.sign({
         id: user.id, email: user.email 
-    },secret, {expiresIn: 60 * 60 * 24})
+    },secret, {expiresIn: 60 * 60 * 24 * 7})
 }
 
 export function verifyUser(token: any) {
