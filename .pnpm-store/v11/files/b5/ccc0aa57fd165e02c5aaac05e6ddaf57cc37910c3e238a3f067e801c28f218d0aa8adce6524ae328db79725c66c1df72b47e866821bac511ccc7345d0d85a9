@@ -1,0 +1,37 @@
+{
+  "name": "@pnpm/exe",
+  "description": "Fast, disk space efficient package manager",
+  "version": "9.0.0",
+  "publishConfig": {
+    "tag": "next-9"
+  },
+  "bugs": {
+    "url": "https://github.com/pnpm/pnpm/issues"
+  },
+  "optionalDependencies": {
+    "@pnpm/linux-arm64": "9.0.0",
+    "@pnpm/macos-arm64": "9.0.0",
+    "@pnpm/linux-x64": "9.0.0",
+    "@pnpm/win-x64": "9.0.0",
+    "@pnpm/macos-x64": "9.0.0"
+  },
+  "devDependencies": {
+    "execa": "npm:safe-execa@0.1.2",
+    "pkg": "5.8.1",
+    "@pnpm/exe": "9.0.0"
+  },
+  "funding": "https://opencollective.com/pnpm",
+  "homepage": "https://github.com/pnpm/pnpm/tree/main/pnpm/artifacts/exe#readme",
+  "license": "MIT",
+  "preferGlobal": true,
+  "repository": "https://github.com/pnpm/pnpm/tree/main/pnpm/artifacts/exe",
+  "keywords": [
+    "pnpm9"
+  ],
+  "scripts": {
+    "preinstall": "node setup.js"
+  },
+  "bin": {
+    "pnpm": "pnpm"
+  }
+}
