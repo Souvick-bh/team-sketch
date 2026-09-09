@@ -7,10 +7,10 @@ import { handleRoomCreation } from "./controllers/room";
 import { getChats } from "./controllers/chat";
 
 const app = express();
-
+app.use(cors({origin: "https://calico-rouge.vercel.app", credentials: true,}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cors());
+
 
 app
 .get("/", (req, res) => { res.send("hello") })
