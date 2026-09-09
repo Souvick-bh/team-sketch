@@ -20,6 +20,6 @@ app
 .post("/api/room/create", restrictedRoute, handleRoomCreation)
 .get("/api/chats/:roomid", getChats)
 
-export default app;
+// export default app;
 
-// app.listen(3001, () => console.log("express server syarted running..."))
+app.listen(3001, () => console.log("express server syarted running..."))
