@@ -80,7 +80,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             <motion.a
-              href="#cta"
+              href={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/login`}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.97 }}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm text-white transition-shadow"
@@ -90,7 +90,7 @@ export function Hero() {
               <ArrowRight size={16} />
             </motion.a>
             <motion.a
-              href="https://github.com"
+              href="https://github.com/Souvick-bh/team-sketch"
               target="_blank"
               rel="noreferrer"
               whileHover={{ y: -2 }}

@@ -1,5 +1,5 @@
-export const ACCENT = '#2563EB';
-export const TEXT = '#111111';
-export const MUTED = '#6B7280';
-export const BORDER = '#E8E8E8';
-export const BG = '#FAFAF7';
+export const ACCENT = "#171717";   
+export const TEXT = "#171717";     
+export const MUTED = "#737373";    
+export const BORDER = "#E5E5E5";   
+export const BG = "#FAFAFA";       

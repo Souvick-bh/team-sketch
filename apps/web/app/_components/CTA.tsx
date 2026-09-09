@@ -36,7 +36,7 @@ export function CTA() {
           className="flex flex-wrap items-center justify-center gap-3"
         >
           <motion.a
-            href="https://github.com"
+            href={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/login`}
             target="_blank"
             rel="noreferrer"
             whileHover={{ y: -3, scale: 1.02 }}
@@ -48,7 +48,7 @@ export function CTA() {
             <ArrowRight size={18} />
           </motion.a>
           <motion.a
-            href="https://github.com"
+            href="https://github.com/Souvick-bh/team-sketch"
             target="_blank"
             rel="noreferrer"
             whileHover={{ y: -3 }}

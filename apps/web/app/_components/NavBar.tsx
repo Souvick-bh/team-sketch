@@ -94,7 +94,7 @@ export function Navbar() {
               How it works
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/Souvick-bh/team-sketch"
               target="_blank"
               rel="noreferrer"
               className="text-sm font-medium transition-colors hover:opacity-70 flex items-center gap-1.5"
@@ -106,7 +106,7 @@ export function Navbar() {
           </div>
           <div className="flex items-center gap-3">
             <motion.a
-              href="http://localhost:3000/login"
+              href={`${process.env.NEXT_PUBLIC_FRONTEND_URL}/login`}
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.97 }}
               className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold px-4 py-2 rounded-lg transition-colors"

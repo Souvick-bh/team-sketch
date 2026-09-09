@@ -1,28 +1,74 @@
-"use client"
+"use client";
 
-import axios from "axios";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
-
-
-export default function Roomchats() {
-    const [roomid, setRoomid] = useState("");
+export default function Roomchats({cretedid }: {cretedid: string}) {
+    const [roomid, setRoomid] = useState(cretedid ?? "");
     const router = useRouter();
 
-    return (
-        <div>
-            <h1>Room Chats</h1>
-            <div className="flex flex-col gap-2">
-                <div className="flex px-5 py-1 gap-6 max-w-70 border rounded-sm border-white">
-                    <label >RoomID</label>
-                    <input className="text-center border-none focus:outline-none" type="text" name="roomid" value={roomid} onChange={(e) => setRoomid(e.target.value)} placeholder="AcHdnoEY"/>
-                </div>
+    const handleJoin = () => {
+        if (roomid.trim() === "") {
+            alert("Enter Room ID");
+            return;
+        }
 
-                <button className="text-center px-5 py-1 max-w-35 gap-6 border rounded-sm border-white" type="submit" onClick={() => router.push(`/room/${roomid}`)}>Join Room</button>
-            
+        router.push(`/canvas/${roomid}`);
+    };
+
+    return (
+        <div className="flex flex-col gap-6 text-center">
+            <div>
+                {/* <h2 className="text-xl font-semibold tracking-tight">
+                    Join Room
+                </h2> */}
+
+                <p className="mt-1 mb-2 text-sm text-neutral-500">
+                    Enter a room ID to continue collaborating.
+                </p>
             </div>
 
+            <div className="flex flex-col gap-4">
+                <input
+                    className="
+                        w-full
+                        rounded-xl
+                        border border-neutral-200
+                        bg-white
+                        px-4 py-3
+                        text-sm
+                        outline-none
+                        transition-all
+                        duration-300
+                        placeholder:text-neutral-400
+                        focus:border-neutral-400
+                    "
+                    type="text"
+                    name="roomid"
+                    value={roomid}
+                    onChange={(e) => setRoomid(e.target.value)}
+                    placeholder="Room ID"
+                />
+
+                <button
+                    className="
+                        rounded-xl
+                        bg-neutral-900
+                        px-4 py-3
+                        text-sm
+                        font-medium
+                        text-white
+                        transition-all
+                        duration-300
+                        hover:bg-neutral-800
+                        active:scale-[0.98] hover:cursor-pointer
+                    "
+                    type="button"
+                    onClick={handleJoin}
+                >
+                    Join Room
+                </button>
+            </div>
         </div>
     );
 }

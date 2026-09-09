@@ -19,6 +19,6 @@ app
 .post("/api/user/signup", handleSignUp)
 .post("/api/user/signin", handleSignIn)
 .post("/api/room/create", restrictedRoute, handleRoomCreation)
-.post("/api/chats", getChats)
+.get("/api/chats/:roomid", getChats)
 
 app.listen(3001, () => console.log("express server syarted running..."))

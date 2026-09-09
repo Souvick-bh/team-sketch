@@ -3,7 +3,7 @@ import { chatTable } from "@repo/db/chat"
 import { asc, desc, eq } from "drizzle-orm";
 
 export async function getChats(req: any, res: any) {
-    const {roomid} = req.body;
+    const {roomid} = req.params;
     if(!roomid) return res.json({message: "roomid is missing..."});
     try {
         const chats = await db.select().from(chatTable).where(eq(chatTable.roomId, roomid)).orderBy(desc(chatTable.createdAt))

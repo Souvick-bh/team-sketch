@@ -1,27 +1,44 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
 import { draw } from "@/draw";
+import Header from "../_components/Header";
+import { useParams } from "next/navigation";
+import { useSocket } from "@/hooks/useSocket";
 
 
 export default function CanvasidPage() {
+    const [token, setToken] = useState("");
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const {canvasid} = useParams<{canvasid: string}>();
 
+    useEffect(() => {
+        setToken(localStorage.getItem("token") ?? "")
+    }, []);
+
+    const socket = useSocket({token});
     
 
     useEffect(() => {
         
-        if(canvasRef.current) {
-            const canvas = canvasRef.current;
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            draw(canvas);
-        }
+        if(!canvasRef.current || !socket) return;
+        const canvas = canvasRef.current;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        draw(canvas, canvasid, socket!);
 
-    }, [canvasRef]);
+    }, [canvasid, socket]);
 
     return (
-        <div>
-            <canvas ref={canvasRef} ></canvas>
+        <div className="relative w-screen h-screen">
+            
+            <canvas ref={canvasRef} className="absolute inset-0"></canvas>
+
+            {/* <div className="absolute inset-0 pointer-events-none">
+                <div className="pointer-events-auto absolute top-4 left-1/2 -translate-x-1/2">
+                    <Header />
+                </div>
+            </div> */}
+
         </div>
     );
 }

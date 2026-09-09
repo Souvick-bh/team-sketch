@@ -6,7 +6,7 @@ import { TEXT, MUTED, BORDER, BG} from './themes';
 
 
 const FOOTER_LINKS = [
-  { label: 'Github', href: 'https://github.com' },
+  { label: 'Github', href: 'https://github.com/Souvick-bh/team-sketch' },
   { label: 'Documentation', href: '#' },
   { label: 'Privacy', href: '#' },
 ];
