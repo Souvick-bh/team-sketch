@@ -1,8 +1,6 @@
 {
   "name": "@repo/common-backend",
-  "main": "./dist/index.js",
   "module": "",
-  "types": "./dist/index.d.ts",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -10,7 +8,10 @@
     "build": "tsc"
   },
   "exports": {
-  "./config": "./src/config.ts"
+    "./config": {
+      "types": "./dist/config.d.ts",
+      "default": "./dist/config.js"
+    }
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
