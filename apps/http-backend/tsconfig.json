@@ -5,12 +5,16 @@
     "outDir": "./dist",
     "composite": true,
     "incremental": true,
+    "noEmit": false,
+    "declaration": true,
     "types": ["node"]
   },
   "include": [
     "src/**/*.ts"
   ],
   "references": [
-    { "path": "../../packages/db" }
+    {
+      "path": "../../packages/db"
+    }
   ]
 }
