@@ -18,10 +18,11 @@ export default function LoginPage() {
     const router = useRouter();
 
     useEffect(() => {
-      if(localStorage.getItem("token")?.trim()!="") {
-        router.push("/room");
-      }
-    }, []);
+        const token = localStorage.getItem("token");
+        if (token?.trim()) {
+            router.push("/room");
+        }
+    }, [router]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm((prev) => ({
@@ -52,12 +53,12 @@ export default function LoginPage() {
             if (signinResp.status === 200 || signinResp.status === 201) {
                 localStorage.setItem("token", signinResp.data.token);
                 setSuccess("Logged in successfully.");
+                router.push("/room");
             }
         } catch (error) {
             setError("Invalid credentials. Please try again.");
         } finally {
             setLoading(false);
-            router.push("/room")
         }
     };
 

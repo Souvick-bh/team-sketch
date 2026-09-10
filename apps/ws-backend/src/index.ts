@@ -13,7 +13,7 @@ interface User {
     ws: WebSocket
 }
 
-const wss = new WebSocketServer({ port: 8080 });
+const wss = new WebSocketServer({ port: Number(process.env.PORT) || 8080 });
 
 let users: User[] = [];
 let rooms = [];
