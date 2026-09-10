@@ -5,8 +5,13 @@ import { handleSignIn, handleSignUp } from "./controllers/user";
 import { handleRoomCreation } from "./controllers/room";
 import { getChats } from "./controllers/chat";
 
+const allowedOrigins = [
+  "https://calico-rouge.vercel.app",
+  "http://localhost:3000",
+];
+
 const app: Express = express();
-app.use(cors({origin: "https://calico-rouge.vercel.app", credentials: true,}));
+app.use(cors({origin: allowedOrigins, credentials: true,}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
