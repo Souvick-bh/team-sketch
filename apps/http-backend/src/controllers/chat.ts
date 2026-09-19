@@ -6,7 +6,7 @@ export async function getChats(req: any, res: any) {
     const {roomid} = req.params;
     if(!roomid) return res.json({message: "roomid is missing..."});
     try {
-        const chats = await db.select().from(chatTable).where(eq(chatTable.roomId, roomid)).orderBy(desc(chatTable.createdAt))
+        const chats = await db.select().from(chatTable).where(eq(chatTable.roomId, roomid)).orderBy(asc(chatTable.createdAt))
         return res.json({chats});
     } catch (error) {
         console.error(error);

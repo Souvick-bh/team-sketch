@@ -4,6 +4,7 @@ import { userTable } from "./user";
 
 export const chatTable = pgTable("chats", {
     id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+    shapeId: varchar("shape_id").notNull().unique(),
     roomId: varchar("room_id").references(() => roomTable.roomId,{onDelete: "cascade"}).notNull(),
     senderId: integer("sender_id").references(() => userTable.id,{onDelete: "cascade"}).notNull(),
     message: text("message").notNull(),

@@ -1,9 +1,9 @@
 "use client";
-
 import { useState } from "react";
 import CreateRoomComp from "./_components/CreateRoom";
 import Roomchats from "./_components/RoomChats";
 import { Logo } from "../_components/NavBar";
+import SignoutButton from "../custom_components/SignOut";
 
 export default function RoomPage() {
     const [create, setCreate] = useState(true);
@@ -12,6 +12,8 @@ export default function RoomPage() {
     return (
         <main className="min-h-screen bg-neutral-50 text-neutral-900">
             <div className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6">
+
+                <SignoutButton />
 
                 <div className="absolute top-5 left-5">
                     <Logo />

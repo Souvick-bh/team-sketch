@@ -1,7 +1,6 @@
 import "dotenv/config"
 import { WebSocketServer, WebSocket } from 'ws';
-// import jwt from "jsonwebtoken";
-// import { JWT_SECRET } from "@repo/common-backend/config"
+import { eq } from "drizzle-orm";
 import { checkUser } from "./middleware/auth";
 import { db } from "@repo/db/index";
 import { chatTable } from "@repo/db/chat";
@@ -41,10 +40,27 @@ wss.on('connection', function connection(ws, req) {
         // console.log(users[users.length-1]?.userid);
 
         switch (parsedData.type) {
+            case "update_shape":
+            if(!user.rooms.includes(parsedData.room_id)) return;
+            try {
+                await db.update(chatTable).set({ message: parsedData.message })
+                    .where(eq(chatTable.shapeId, parsedData.id));
+                users.forEach((u)=>{
+                    if(
+                        u.rooms.includes(parsedData.room_id) &&
+                        u.ws.readyState === WebSocket.OPEN
+                    ){ u.ws.send(JSON.stringify({
+                            type:"update_shape", id:parsedData.id,
+                            message:parsedData.message, room_id:parsedData.room_id }));
+                    }});
+            } catch(error){
+                console.error(error);
+            }
+            break;
             case "draw":
                 if(!user.rooms.includes(parsedData.room_id)) return;
                 try {
-                    await db.insert(chatTable).values({roomId: parsedData.room_id, senderId: user?.userid!, message: parsedData.message});
+                    await db.insert(chatTable).values({roomId: parsedData.room_id, shapeId: JSON.parse(parsedData.message).id, senderId: user?.userid!, message: parsedData.message});
                     users.forEach(u => {
                         if(u.rooms.includes(parsedData.room_id) && u.ws.readyState === WebSocket.OPEN) {
                             u.ws.send(JSON.stringify({type: "draw", message: parsedData.message, room_id: parsedData.room_id}))
@@ -64,20 +80,20 @@ wss.on('connection', function connection(ws, req) {
                 user.rooms = user.rooms.filter(r=> r !== parsedData.room_id);
                 break;
             
-            case "chat":
-                if(!user.rooms.includes(parsedData.room_id)) return;
+            // case "chat":
+            //     if(!user.rooms.includes(parsedData.room_id)) return;
 
-                try {
-                    await db.insert(chatTable).values({roomId: parsedData.room_id, senderId: user?.userid!, message: parsedData.message});
-                    users.forEach(u => {
-                        if(u.rooms.includes(parsedData.room_id) && u.ws.readyState === WebSocket.OPEN) {
-                            u.ws.send(JSON.stringify({type: "chat", message: parsedData.message, room_id: parsedData.room_id}))
-                        }
-                    })
-                } catch (error) {
-                    console.error(error)
-                }
-                break
+            //     try {
+            //         await db.insert(chatTable).values({roomId: parsedData.room_id, senderId: user?.userid!, message: parsedData.message});
+            //         users.forEach(u => {
+            //             if(u.rooms.includes(parsedData.room_id) && u.ws.readyState === WebSocket.OPEN) {
+            //                 u.ws.send(JSON.stringify({type: "chat", message: parsedData.message, room_id: parsedData.room_id}))
+            //             }
+            //         })
+            //     } catch (error) {
+            //         console.error(error)
+            //     }
+            //     break
         }
         
     });
